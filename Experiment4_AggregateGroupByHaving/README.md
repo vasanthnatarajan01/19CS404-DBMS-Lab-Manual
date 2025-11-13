@@ -34,128 +34,229 @@ SELECT column_name, AGG_FUNC(column_name)
 FROM table_name
 GROUP BY column_name
 HAVING condition;
-```
 
+
+```
 **Question 1**
 --
--- Paste Question 1 here
+How many medical records were created in each month?
+
+Sample table:MedicalRecords Table
+
+<img width="1089" height="164" alt="image (6)" src="https://github.com/user-attachments/assets/c66e9cfd-6b77-46e0-975d-f6f626654ad6" />
+
 
 ```sql
--- Paste your SQL code below for Question 1
+SELECT strftime('%Y-%m', Date) AS Month, COUNT(*) AS TotalRecords
+FROM MedicalRecords
+GROUP BY Month
+ORDER BY Month;
 ```
 
 **Output:**
 
-![Output1](output.png)
+<img width="574" height="410" alt="image" src="https://github.com/user-attachments/assets/3ae13b16-f60d-4518-a562-b9968ddbcc0f" />
+
 
 **Question 2**
 ---
--- Paste Question 2 here
+Write a SQL Query to find how many medications are prescribed for each patient?
+
+Sample table:MedicalRecords Table
+
+<img width="1089" height="164" alt="image (6) (1)" src="https://github.com/user-attachments/assets/1b84056f-0c3f-4695-9b89-82dd369696f1" />
+
+
 
 ```sql
--- Paste your SQL code below for Question 2
+SELECT PatientID, COUNT(Medications) AS AvgMedications
+FROM MedicalRecords GROUP BY PatientID;
 ```
 
 **Output:**
 
-![Output2](output.png)
+<img width="610" height="584" alt="image-1" src="https://github.com/user-attachments/assets/cd877944-903e-4c86-a8ad-734e8552966e" />
+
 
 **Question 3**
 ---
--- Paste Question 3 here
+How many patients are there in each city?
+
+Sample table: Patients Table
+
+<img width="1076" height="161" alt="image (3)" src="https://github.com/user-attachments/assets/5c282d0e-f9a0-4e6c-9775-8bd764941669" />
+
 
 ```sql
--- Paste your SQL code below for Question 3
+SELECT Address, COUNT(PatientID) AS TotalPatients 
+FROM Patients
+GROUP BY Address;
 ```
 
 **Output:**
 
-![Output3](output.png)
+<img width="588" height="381" alt="image-2" src="https://github.com/user-attachments/assets/e81e5554-49f5-4b1c-8e2f-d7daab654d09" />
+
 
 **Question 4**
 ---
--- Paste Question 4 here
+Write a SQL query that counts the number of unique salespeople. Return number of salespeople.
+
+Sample table: orders
+```
+ord_no      purch_amt   ord_date    customer_id  salesman_id
+
+----------  ----------  ----------  -----------  -----------
+
+70001       150.5       2012-10-05  3005         5002
+
+70009       270.65      2012-09-10  3001         5005
+
+70002       65.26       2012-10-05  3002         5001
+```
 
 ```sql
--- Paste your SQL code below for Question 4
+SELECT COUNT(DISTINCT Salesman_id) COUNT FROM orders;
 ```
 
 **Output:**
 
-![Output4](output.png)
+<img width="325" height="291" alt="image-3" src="https://github.com/user-attachments/assets/ec92a212-c529-4eef-b8a0-e15695b3dab5" />
+
 
 **Question 5**
 ---
--- Paste Question 5 here
+Write a SQL query to find how many employees have an income greater than 50K?
+
+Table: employee
+```
+name        type
+----------  ----------
+id          INTEGER
+name        TEXT
+age         INTEGER
+city        TEXT
+income      INTEGER
+```
 
 ```sql
--- Paste your SQL code below for Question 5
+SELECT COUNT(id) AS employees_count FROM employee WHERE income > 50000;
 ```
 
 **Output:**
 
-![Output5](output.png)
+<img width="411" height="295" alt="image-4" src="https://github.com/user-attachments/assets/fbb8903f-ad36-4a82-b554-2f4162aa0933" />
+
 
 **Question 6**
 ---
--- Paste Question 6 here
+Write a SQL query to find the average length of email addresses (in characters):
+
+Table: customer
+```
+name        type
+----------  ----------
+id          INTEGER
+name        TEXT
+city        TEXT
+email       TEXT
+phone       INTEGER
+```
 
 ```sql
--- Paste your SQL code below for Question 6
+SELECT AVG(LENGTH(email)) AS avg_email_length FROM customer;
 ```
 
 **Output:**
 
-![Output6](output.png)
+<img width="419" height="278" alt="image-5" src="https://github.com/user-attachments/assets/1e62a36e-4e94-427d-99e7-db21e81c7995" />
+
 
 **Question 7**
 ---
--- Paste Question 7 here
+Write a SQL query to find the total income of employees aged 40 or above.
+
+Table: employee
+```
+name        type
+----------  ----------
+id          INTEGER
+name        TEXT
+age         INTEGER
+city        TEXT
+income      INTEGER
+```
 
 ```sql
--- Paste your SQL code below for Question 7
+SELECT SUM(income) AS total_income FROM employee WHERE age >= 40;
 ```
 
 **Output:**
 
-![Output7](output.png)
+<img width="356" height="290" alt="image-6" src="https://github.com/user-attachments/assets/c5b38e34-7c19-49b4-97f8-cba289859db3" />
+
 
 **Question 8**
 ---
--- Paste Question 8 here
+Write the SQL query that performs grouping by age groups and displays the maximum salary for each group, excluding groups where the maximum salary is not greater than 8000. 
+
+Note: Calculate the age group as multiples of 5.
+
+Eg., 20,22,23 comes in age group 20. 
+
+25,27,29 comes in age group 25.
+
+Sample table: customer1
+
+
+<img width="992" height="173" alt="unnamed" src="https://github.com/user-attachments/assets/ce6eb388-c23e-48b0-9eca-e72f376b1253" />
 
 ```sql
--- Paste your SQL code below for Question 8
+SELECT (age/5) * 5 AS age_group, MAX(salary)
+FROM customer1
+GROUP BY age_group
+HAVING MAX(salary) > 8000;
 ```
 
 **Output:**
 
-![Output8](output.png)
+<img width="558" height="336" alt="image-7" src="https://github.com/user-attachments/assets/b95f6bbb-9ee6-4cc4-a976-7a194e969a5d" />
+
 
 **Question 9**
 ---
--- Paste Question 9 here
+Write the SQL query that accomplishes the grouping of data by addresses, calculates the sum of salaries for each address, and excludes addresses where the total salary sum is not greater than 2000.
+
+Sample table: customer1
+
+<img width="992" height="173" alt="unnamed (1)" src="https://github.com/user-attachments/assets/caf0b698-b334-4621-950c-542b7651e507" />
 
 ```sql
--- Paste your SQL code below for Question 9
+SELECT address, SUM(salary) FROM customer1 GROUP BY address HAVING SUM(salary) > 2000;
 ```
 
 **Output:**
 
-![Output9](output.png)
+<img width="553" height="457" alt="image-8" src="https://github.com/user-attachments/assets/74e247da-dc59-42a8-b65b-06b8160a3963" />
 
 **Question 10**
 ---
--- Paste Question 10 here
+Write the SQL query that accomplishes the selection of total cost of all products in each category from the "products" table and includes only those products where the total cost is greater than 50.
+
+Sample table: products
+
+<img width="972" height="212" alt="unnamed (2)" src="https://github.com/user-attachments/assets/c42200b6-9728-437a-8229-ca6d6b2f2ea6" />
 
 ```sql
--- Paste your SQL code below for Question 10
+SELECT category_id, SUM(price) AS Total_Cost FROM products GROUP BY category_id HAVING Total_Cost > 50;
 ```
 
 **Output:**
 
-![Output10](output.png)
+
+<img width="555" height="309" alt="image-9" src="https://github.com/user-attachments/assets/bf2b6eeb-5ca7-4b32-a15a-493203bfdd51" />
 
 
 ## RESULT
 Thus, the SQL queries to implement aggregate functions, GROUP BY, and HAVING clause have been executed successfully.
+
