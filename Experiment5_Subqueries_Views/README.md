@@ -38,123 +38,290 @@ DROP VIEW view_name;
 
 **Question 1**
 --
--- Paste Question 1 here
+Write a SQL query to retrieve all columns from the CUSTOMERS table for customers whose Address as Delhi and age below 30
+
+Sample table: CUSTOMERS
+
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+
+1          Ramesh      32          Ahmedabad         2000
+2          Khilan      25          Delhi             1500
+3          Kaushik     23          Kota              2000
+4          Chaitali    25          Mumbai            6500
+5          Hardik      27          Bhopal            8500
+6          Komal       22          Hyderabad         4500
+7           Muffy      24          Indore           10000
 
 ```sql
--- Paste your SQL code below for Question 1
+SELECT * 
+FROM CUSTOMERS
+WHERE ADDRESS = 'Delhi' AND AGE < 30
+ORDER BY ID;
+
 ```
 
 **Output:**
 
-![Output1](output.png)
+![Screenshot 2025-05-05 141151](https://github.com/user-attachments/assets/69ac48d5-a35f-410d-88dd-825a18dd0055)
+
 
 **Question 2**
 ---
--- Paste Question 2 here
+Write a SQL query that retrieves the all the columns from the Table Grades, where the grade is equal to the minimum grade achieved in each subject.
+
+Sample table: GRADES (attributes: student_id, student_name, subject, grade)
 
 ```sql
--- Paste your SQL code below for Question 2
+SELECT * 
+FROM GRADES g
+WHERE grade = (
+    SELECT MIN(grade) 
+    FROM GRADES 
+    WHERE subject = g.subject
+);
+
 ```
 
 **Output:**
+![Screenshot 2025-05-05 141244](https://github.com/user-attachments/assets/63b356b3-6440-4832-a259-b1b19fba7bd9)
 
-![Output2](output.png)
 
 **Question 3**
 ---
--- Paste Question 3 here
+From the following tables write a SQL query to find salespeople who had more than one customer. Return salesman_id and name.
+
+salesman table
+
+name                 type
+---------------   ---------------
+salesman_id       numeric(5)
+name              varchar(30)
+city              varchar(15)
+commission        decimal(5,2)
+
+customer table
+
+name              type
+-----------       ----------
+customer_id      int
+cust_name        text
+city             text
+grade            int
+salesman_id      int
 
 ```sql
--- Paste your SQL code below for Question 3
+SELECT s.salesman_id, s.name
+FROM salesman s
+JOIN customer c ON s.salesman_id = c.salesman_id
+GROUP BY s.salesman_id, s.name
+HAVING COUNT(c.customer_id) > 1;
+
 ```
 
 **Output:**
+![Screenshot 2025-05-05 141405](https://github.com/user-attachments/assets/6756877a-a2cb-4955-b766-4c2b38c8c0ae)
 
-![Output3](output.png)
 
 **Question 4**
 ---
--- Paste Question 4 here
+Write a query to display all the customers whose ID is the difference between the salesperson ID of Mc Lyon and 2001.
+
+salesman table
+
+name             type
+---------------  ---------------
+salesman_id      numeric(5)
+name             varchar(30)
+city             varchar(15)
+commission       decimal(5,2)
+
+customer table
+
+name         type
+-----------  ----------
+customer_id  int
+cust_name    text
+city         text
+grade        int
+salesman_id  int
 
 ```sql
--- Paste your SQL code below for Question 4
+SELECT *
+FROM customer
+WHERE customer_id = (
+    SELECT salesman_id - 2001
+    FROM salesman
+    WHERE name = 'Mc Lyon'
+);
+
 ```
 
 **Output:**
 
-![Output4](output.png)
+![Screenshot 2025-05-05 141513](https://github.com/user-attachments/assets/156ab547-f3f1-430d-85c7-1aece8df1395)
 
 **Question 5**
 ---
--- Paste Question 5 here
+Write a SQL query that retrieves the names of students and their corresponding grades, where the grade is equal to the maximum grade achieved in each subject.
+
+Sample table: GRADES (attributes: student_id, student_name, subject, grade)
 
 ```sql
--- Paste your SQL code below for Question 5
+SELECT student_name, grade
+FROM GRADES g
+WHERE grade = (
+    SELECT MAX(grade)
+    FROM GRADES
+    WHERE subject = g.subject
+);
+
 ```
 
 **Output:**
 
-![Output5](output.png)
+![Screenshot 2025-05-05 141617](https://github.com/user-attachments/assets/a739fcd2-5493-4b67-91d9-9949226e3ac4)
+
 
 **Question 6**
 ---
--- Paste Question 6 here
+Write a SQL query to Retrieve the medications with dosages equal to the highest dosage
+
+Table Name: Medications (attributes: medication_id, medication_name, dosage)
 
 ```sql
--- Paste your SQL code below for Question 6
+SELECT medication_id, medication_name, dosage
+FROM Medications
+WHERE dosage = (
+    SELECT MAX(dosage)
+    FROM Medications
+);
+
 ```
 
 **Output:**
 
-![Output6](output.png)
+![Screenshot 2025-05-05 141721](https://github.com/user-attachments/assets/a67c7ffb-251b-4b6d-b93c-1b8242c3db47)
+
 
 **Question 7**
 ---
--- Paste Question 7 here
+From the following tables, write a SQL query to find those salespeople who earned the maximum commission. Return ord_no, purch_amt, ord_date, and salesman_id.
+
+salesman table
+
+name             type
+---------------  ---------------
+salesman_id      numeric(5)
+name             varchar(30)
+city             varchar(15)
+commission       decimal(5,2)
+
+orders table
+
+name             type
+---------------  --------
+order_no         int
+purch_amt        real
+order_date       text
+customer_id      int
+salesman_id      int
 
 ```sql
--- Paste your SQL code below for Question 7
+SELECT
+    o.ord_no,
+    o.purch_amt,
+    o.ord_date,
+    o.salesman_id
+FROM orders o
+WHERE
+    o.salesman_id IN (
+    SELECT salesman_id FROM salesman 
+    ORDER BY commission DESC LIMIT 1);
 ```
 
 **Output:**
+![Screenshot 2025-05-05 141855](https://github.com/user-attachments/assets/2ec5f2f1-71a6-436f-bfd8-3a33f1e91594)
 
-![Output7](output.png)
 
 **Question 8**
----
--- Paste Question 8 here
+---Write a SQL query that retrieve all the columns from the table "Grades", where the grade is equal to the maximum grade achieved in each subject.
+
+Sample table: GRADES (attributes: student_id, student_name, subject, grade)
 
 ```sql
--- Paste your SQL code below for Question 8
+SELECT student_id, student_name, subject, grade
+FROM Grades g
+WHERE grade = (
+    SELECT MAX(grade)
+    FROM Grades
+    WHERE subject = g.subject
+);
+
 ```
 
 **Output:**
 
-![Output8](output.png)
+
 
 **Question 9**
 ---
--- Paste Question 9 here
+From the following tables write a SQL query to find all orders generated by London-based salespeople. Return ord_no, purch_amt, ord_date, customer_id, salesman_id.
+
+salesman table
+
+name             type
+---------------  ---------------
+salesman_id      numeric(5)
+name             varchar(30)
+city             varchar(15)
+commission       decimal(5,2)
+
+orders table
+
+name             type
+---------------  --------
+order_no         int
+purch_amt        real
+order_date       text
+customer_id      int
+salesman_id      int
 
 ```sql
--- Paste your SQL code below for Question 9
+SELECT
+    ord_no,purch_amt,ord_date,customer_id,salesman_id FROM orders
+WHERE
+    salesman_id IN (
+    SELECT salesman_id FROM salesman WHERE city = 'London');
 ```
 
 **Output:**
 
-![Output9](output.png)
+![Screenshot 2025-05-05 142108](https://github.com/user-attachments/assets/4c9edd61-da38-4317-861f-7347b75e1ad7)
+
 
 **Question 10**
 ---
--- Paste Question 10 here
+Write a SQL query to Retrieve the names and cities of customers who have the same city as customers with IDs 3 and 7
+
+SAMPLE TABLE: customer
+
+name             type
+---------------  ---------------
+id               INTEGER
+name             TEXT
+city             TEXT
+email            TEXT
+phone            INTEGER
 
 ```sql
--- Paste your SQL code below for Question 10
+SELECT DISTINCT name,city FROM customer
+WHERE city IN (
+        SELECT city FROM customer WHERE id IN (3, 7));
 ```
 
 **Output:**
-
-![Output10](output.png)
+![Screenshot 2025-05-05 142221](https://github.com/user-attachments/assets/8d199b30-3b50-4230-acda-69f78b662416)
 
 
 ## RESULT
